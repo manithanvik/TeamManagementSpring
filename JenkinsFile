@@ -1,6 +1,11 @@
 pipeline{
   agent any  
-    stages {
+    tools{
+      maven 'maven'
+      jdk 'JDK11'
+    }
+
+  stages {
     stage('Build'){
        steps {
                 sh'mvn clean package'
@@ -13,6 +18,21 @@ pipeline{
         sh 'mvn test'
       }
       }
+    stage("Build & SonarQube analysis") {
+            agent any
+            steps {
+              withSonarQubeEnv('SonarSpring') {
+                sh 'java -version'
+                sh 'mvn clean package sonar:sonar'
+              }
+            }
+          }
+           stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+  
     stage('collect artifact'){
      steps{
      archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
@@ -47,7 +67,7 @@ pipeline{
                     "files": [
                          {
                              "pattern": "art-doc-dev-loc/",
-                             "target": ""team-mange"
+                             "target": "team-mange"
                         }
                      ]
                 }''',
