@@ -42,12 +42,12 @@ pipeline{
             steps{
      
                 rtDownload (
-                    serverId: 'ARTIFACTORY_SERVER',
+                    serverId: 'jfrog-server',
                     spec: '''{
                     "files": [
                          {
                              "pattern": "art-doc-dev-loc/",
-                             "target": ""
+                             "target": ""team-mange"
                         }
                      ]
                 }''',
