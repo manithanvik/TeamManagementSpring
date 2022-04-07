@@ -18,21 +18,6 @@ pipeline{
         sh 'mvn test'
       }
       }
-    stage("Build & SonarQube analysis") {
-            agent any
-            steps {
-              withSonarQubeEnv('SonarSpring') {
-                sh 'java -version'
-                sh 'mvn clean package sonar:sonar'
-              }
-            }
-          }
-           stage("Quality gate") {
-            steps {
-                waitForQualityGate abortPipeline: true
-            }
-        }
-  
     stage('collect artifact'){
      steps{
      archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
@@ -43,12 +28,12 @@ pipeline{
      steps{
      
      rtUpload (
-    serverId: 'ARTIFACTORY_SERVER',
+    serverId: 'jfrog-server',
     spec: '''{
           "files": [
             {
               "pattern": "target/*.jar",
-              "target": "art-doc-dev-loc"
+              "target": "team-mange"
             }
          ]
     }''',
