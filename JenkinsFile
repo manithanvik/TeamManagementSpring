@@ -24,12 +24,12 @@ pipeline{
      steps{
      
      rtUpload (
-    serverId: 'jfrog-server',
+    serverId: 'jfrog',
     spec: '''{
           "files": [
             {
               "pattern": "target/*.jar",
-              "target": "team-mange"
+              "target": "maven1"
             }
          ]
     }''',
@@ -43,12 +43,12 @@ pipeline{
             steps{
      
                 rtDownload (
-                    serverId: 'jfrog-server',
+                    serverId: 'jfrog',
                     spec: '''{
                     "files": [
                          {
                              "pattern": "art-doc-dev-loc/",
-                             "target": "team-mange"
+                             "target": "maven1"
                         }
                      ]
                 }''',
