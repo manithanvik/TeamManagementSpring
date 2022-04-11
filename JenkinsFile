@@ -24,7 +24,7 @@ pipeline{
      steps{
      
      rtUpload (
-    serverId: 'jfrog',
+    serverId: 'Jfrog',
     spec: '''{
           "files": [
             {
@@ -43,7 +43,7 @@ pipeline{
             steps{
      
                 rtDownload (
-                    serverId: 'jfrog',
+                    serverId: 'Jfrog',
                     spec: '''{
                     "files": [
                          {
